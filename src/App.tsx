@@ -41,8 +41,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Trains />}/>
           <Route path="/:id" element={<Tickets />} />
-          <Route path="/:id/:edit" element={<EditTrain />} />
-          <Route path="/create" element={< CreateTrain/>} />
+          <Route path="/:id/:edit" element={<ProtectedRoute><EditTrain/></ProtectedRoute> } />
+          <Route path="/create" element={<ProtectedRoute><CreateTrain/></ProtectedRoute>}  />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
