@@ -13,6 +13,7 @@ import {TrainStatusEnum} from "../interfaces/trainStatus.enum";
 const Trains: FC = () => {
     const navigate = useNavigate();
     const user = useUser();
+    const isAuth = useAuth();
     const [urlSearchParams, setSearchParams] = useSearchParams();
 
     const page = Number(urlSearchParams.get('page')) || DEFAULT_PAGINATION.page;
@@ -57,14 +58,13 @@ const Trains: FC = () => {
             sortingOrder: newDirection,
         });
     };
-
     return (
         <div className="container mt-5">
             <div className="card p-4 rounded-md">
                 <div className="d-flex justify-content-between mb-4">
                     <h1 className="mb-0">UKRZALIZNUTCIA</h1>
                     {
-                        user && <button className="btn btn-dark" onClick={() => navigate('/create')}>
+                        isAuth && <button className="btn btn-dark" onClick={() => navigate('/create')}>
                             Add Train
                         </button>
                     }
@@ -113,7 +113,7 @@ const Trains: FC = () => {
                                 : ''}
                         </th>
                         <th>Price</th>
-                        <th>Actions</th>
+                        {isAuth && <th>Actions</th>}
                     </tr>
                     </thead>
                     <tbody>
@@ -130,7 +130,7 @@ const Trains: FC = () => {
                             <td>{train.arrival}</td>
                             <td>{train.availableSeats}</td>
                             <td>{train.price}</td>
-                            <td>
+                            {isAuth &&    <td>
                                 {isOwnerChecker(train.ownerId, user) && (
                                     <div className="d-flex align-items-center gap-2">
                                         <BsTrash
@@ -164,7 +164,8 @@ const Trains: FC = () => {
                                         </select>
                                     </div>
                                 )}
-                            </td>
+                            </td>}
+
 
                         </tr>
                     ))}
